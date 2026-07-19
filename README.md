@@ -91,3 +91,25 @@ La vista principal de proyectos incorpora el componente reutilizable `x-uf-extra
 - valor UF simulado
 - fecha del dia
 - mensaje de servicio externo simulado
+
+## Capturas de pantalla Vistas solicitadas
+
+### Listado de proyectos
+
+![Listado de proyectos](docs/capturas/proyectos-index.png)
+
+### Crear proyecto
+
+![Crear proyecto](docs/capturas/proyectos-create.png)
+
+### Ver proyecto
+
+![Ver proyecto](docs/capturas/proyectos-show.png)
+
+### Editar proyecto
+
+![Editar proyecto](docs/capturas/proyectos-edit.png)
+
+### Eliminar proyecto
+
+![Eliminar proyecto](docs/capturas/proyectos-delete.png)
