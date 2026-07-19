@@ -12,7 +12,7 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::obtenerDatosEstaticos();
+        $proyectos = Proyecto::all();
 
         return view('proyectos.index', compact('proyectos'));
     }
@@ -36,9 +36,11 @@ class ProyectoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Proyecto $proyecto)
+    public function show($id)
     {
-        //
+        $proyecto = Proyecto::findOrFail($id);
+
+        return view('proyectos.show', compact('proyecto'));
     }
 
     /**
