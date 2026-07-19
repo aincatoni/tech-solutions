@@ -8,12 +8,23 @@ use Illuminate\View\Component;
 
 class UfExtract extends Component
 {
+    public string $serviceName;
+
+    public string $ufValue;
+
+    public string $currentDate;
+
+    public string $statusText;
+
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+        $this->serviceName = 'Servicio UF';
+        $this->ufValue = '$38.500';
+        $this->currentDate = now()->format('d/m/Y');
+        $this->statusText = 'Servicio externo simulado';
     }
 
     /**

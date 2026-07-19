@@ -36,16 +36,11 @@
                     <td>
     			<a href="{{ route('proyectos.show', $proyecto['id']) }}" class="btn btn-sm btn-info">Ver</a>
     			<a href="{{ route('proyectos.edit', $proyecto['id']) }}" class="btn btn-sm btn-warning">Editar</a>
-    			<form action="{{ route('proyectos.destroy', $proyecto['id']) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-    			</form>
-                    </td>
-                </tr>
-                @endforeach
+    			<a href="{{ route('proyectos.delete', $proyecto['id']) }}" class="btn btn-sm btn-danger">Eliminar</a>
+                     </td>
+                 </tr>
+                 @endforeach
             </tbody>
         </table>
     </div>
     @endsection
-

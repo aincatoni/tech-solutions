@@ -22,7 +22,7 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        //
+        return view('proyectos.create');
     }
 
     /**
@@ -30,7 +30,9 @@ class ProyectoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $proyecto = Proyecto::create($request->all());
+
+        return redirect()->route('proyectos.index');
     }
 
     /**
@@ -46,24 +48,44 @@ class ProyectoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proyecto $proyecto)
+    public function edit($id)
     {
-        //
+        $proyecto = Proyecto::findOrFail($id);
+
+        return view('proyectos.edit', compact('proyecto'));
+    }
+
+    /**
+     * Show the confirmation view for deleting the specified resource.
+     */
+    public function delete($id)
+    {
+        $proyecto = Proyecto::findOrFail($id);
+
+        return view('proyectos.delete', compact('proyecto'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Proyecto $proyecto)
+    public function update(Request $request, $id)
     {
-        //
+        $proyecto = Proyecto::findOrFail($id);
+
+        $proyecto->update($request->all());
+
+        return redirect()->route('proyectos.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proyecto $proyecto)
+    public function destroy($id)
     {
-        //
+        $proyecto = Proyecto::findOrFail($id);
+
+        $proyecto->delete();
+
+        return redirect()->route('proyectos.index');
     }
 }
