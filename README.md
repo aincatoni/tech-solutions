@@ -127,6 +127,19 @@ Si ejecutas los seeders, queda disponible este usuario:
 4. Todas las rutas de proyectos requieren autenticacion
 5. Cada proyecto nuevo se guarda con `created_by` igual al ID del usuario autenticado
 
+## Prueba manual sugerida
+
+1. Entrar a `/`
+2. Verificar redireccion a `login`
+3. Registrar un usuario nuevo o usar el usuario de prueba
+4. Confirmar acceso al listado de proyectos
+5. Crear un proyecto nuevo
+6. Verificar que aparece el nombre del creador en el listado
+7. Editar el proyecto
+8. Eliminar el proyecto
+9. Cerrar sesion
+10. Intentar volver a `/proyectos` y comprobar redireccion a `login`
+
 ## Rutas principales
 
 - `/`
@@ -162,13 +175,21 @@ La vista principal de proyectos incorpora el componente reutilizable `x-uf-extra
 
 ## Capturas de pantalla Vistas solicitadas
 
+### Login
+
+![Vista login](docs/capturas/vista-login.png)
+
+### Registro
+
+![Vista register](docs/capturas/vista-register.png)
+
 ### Listado de proyectos
 
-![Listado de proyectos](docs/capturas/proyectos-index.png)
+![Vista proyectos](docs/capturas/vista-proyectos.png)
 
 ### Crear proyecto
 
-![Crear proyecto](docs/capturas/proyectos-create.png)
+![Vista crear proyecto](docs/capturas/vista-crear-proyecto.png)
 
 ### Ver proyecto
 
@@ -176,8 +197,34 @@ La vista principal de proyectos incorpora el componente reutilizable `x-uf-extra
 
 ### Editar proyecto
 
-![Editar proyecto](docs/capturas/proyectos-edit.png)
+![Vista editar proyecto](docs/capturas/vista-editar-proyecto.png)
 
 ### Eliminar proyecto
 
-![Eliminar proyecto](docs/capturas/proyectos-delete.png)
+![Vista eliminar proyecto](docs/capturas/vista-eliminar-proyecto.png)
+
+## Capturas de pruebas manuales
+
+### Redireccion inicial a login
+
+![Redireccion inicial](docs/capturas/vista-redirecion-01.png)
+
+### Redireccion de ruta protegida sin sesion
+
+![Redireccion ruta protegida](docs/capturas/vista-redirecion-02.png)
+
+### Proyecto creado
+
+![Proyecto creado](docs/capturas/vista-proyecto-creado.png)
+
+### Proyecto editado
+
+![Proyecto editado](docs/capturas/vista-proyecto-editado.png)
+
+### Proyecto eliminado
+
+![Proyecto eliminado](docs/capturas/vista-proyecto-eliminado.png)
+
+### Sesion cerrada
+
+![Sesion cerrada](docs/capturas/vista-sesion-cerrada.png)
