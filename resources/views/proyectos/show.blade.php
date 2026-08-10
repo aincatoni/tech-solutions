@@ -4,23 +4,30 @@
 
 @section('content')
 <div class="container">
-    <x-uf-extract />
-
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <h1>Detalle del Proyecto</h1>
+    <div class="page-heading">
+        <div>
+            <h1>Detalle del Proyecto</h1>
+            <p class="page-copy text-muted-hero mb-0">Consulta los datos principales y su trazabilidad con el usuario creador.</p>
+        </div>
         <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Volver</a>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <p><strong>ID:</strong> {{ $proyecto->id }}</p>
-            <p><strong>Nombre:</strong> {{ $proyecto->nombre }}</p>
-            <p><strong>Fecha de Inicio:</strong> {{ $proyecto->fecha_inicio }}</p>
-            <p><strong>Estado:</strong> {{ $proyecto->estado }}</p>
-            <p><strong>Responsable:</strong> {{ $proyecto->responsable }}</p>
-            <p><strong>Monto:</strong> ${{ number_format($proyecto->monto, 0, ',', '.') }}</p>
-            <p><strong>Creado por:</strong> {{ $proyecto->creator?->name ?? 'Sin usuario' }}</p>
-            <p class="mb-0"><strong>ID creador:</strong> {{ $proyecto->created_by ?? 'Sin asignar' }}</p>
+    <div class="mb-4">
+        <x-uf-extract />
+    </div>
+
+    <div class="card section-card">
+        <div class="card-body p-4 p-lg-5">
+            <div class="row g-4">
+                <div class="col-md-6"><strong>ID:</strong><div class="text-muted-hero mt-1">{{ $proyecto->id }}</div></div>
+                <div class="col-md-6"><strong>Nombre:</strong><div class="text-muted-hero mt-1">{{ $proyecto->nombre }}</div></div>
+                <div class="col-md-6"><strong>Fecha de Inicio:</strong><div class="text-muted-hero mt-1">{{ $proyecto->fecha_inicio }}</div></div>
+                <div class="col-md-6"><strong>Estado:</strong><div class="mt-2"><span class="badge bg-info">{{ $proyecto->estado }}</span></div></div>
+                <div class="col-md-6"><strong>Responsable:</strong><div class="text-muted-hero mt-1">{{ $proyecto->responsable }}</div></div>
+                <div class="col-md-6"><strong>Monto:</strong><div class="text-muted-hero mt-1">${{ number_format($proyecto->monto, 0, ',', '.') }}</div></div>
+                <div class="col-md-6"><strong>Creado por:</strong><div class="text-muted-hero mt-1">{{ $proyecto->creator?->name ?? 'Sin usuario' }}</div></div>
+                <div class="col-md-6"><strong>ID creador:</strong><div class="text-muted-hero mt-1">{{ $proyecto->created_by ?? 'Sin asignar' }}</div></div>
+            </div>
         </div>
     </div>
 </div>
