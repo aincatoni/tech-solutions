@@ -1,6 +1,7 @@
 
       @extends('layouts.app')                                                                                                                                                          
-                                                                                                                                                                                     
+    @section('title', 'Proyectos Registrados')
+                                                                                                                                                                                      
     @section('content')                                                                                                                                                              
     <div class="container">                                                                                                                                                          
         <!-- Componente UF -->                                                                                                                                                       
@@ -21,6 +22,7 @@
                     <th>Estado</th>
                     <th>Responsable</th>
                     <th>Monto</th>
+                    <th>Creado por</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -33,10 +35,11 @@
                     <td><span class="badge bg-info">{{ $proyecto['estado'] }}</span></td>
                     <td>{{ $proyecto['responsable'] }}</td>
                     <td>${{ number_format($proyecto['monto'], 0, ',', '.') }}</td>
+                    <td>{{ $proyecto->creator?->name ?? 'Sin usuario' }}</td>
                     <td>
-    			<a href="{{ route('proyectos.show', $proyecto['id']) }}" class="btn btn-sm btn-info">Ver</a>
-    			<a href="{{ route('proyectos.edit', $proyecto['id']) }}" class="btn btn-sm btn-warning">Editar</a>
-    			<a href="{{ route('proyectos.delete', $proyecto['id']) }}" class="btn btn-sm btn-danger">Eliminar</a>
+     			<a href="{{ route('proyectos.show', $proyecto['id']) }}" class="btn btn-sm btn-info">Ver</a>
+     			<a href="{{ route('proyectos.edit', $proyecto['id']) }}" class="btn btn-sm btn-warning">Editar</a>
+     			<a href="{{ route('proyectos.delete', $proyecto['id']) }}" class="btn btn-sm btn-danger">Eliminar</a>
                      </td>
                  </tr>
                  @endforeach

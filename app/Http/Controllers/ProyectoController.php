@@ -12,7 +12,7 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::all();
+        $proyectos = Proyecto::with('creator')->get();
 
         return view('proyectos.index', compact('proyectos'));
     }
@@ -30,9 +30,24 @@ class ProyectoController extends Controller
      */
     public function store(Request $request)
     {
-        $proyecto = Proyecto::create($request->all());
+        $data = $request->validate([
+            'nombre' => ['required', 'string', 'max:255'],
+            'fecha_inicio' => ['required', 'date'],
+            'estado' => ['required', 'string', 'max:255'],
+            'responsable' => ['required', 'string', 'max:255'],
+            'monto' => ['required', 'numeric', 'min:0'],
+        ]);
 
-        return redirect()->route('proyectos.index');
+        Proyecto::create([
+            'nombre' => $data['nombre'],
+            'fecha_inicio' => $data['fecha_inicio'],
+            'estado' => $data['estado'],
+            'responsable' => $data['responsable'],
+            'monto' => $data['monto'],
+            'created_by' => auth()->id(),
+        ]);
+
+        return redirect()->route('proyectos.index')->with('success', 'Proyecto creado correctamente.');
     }
 
     /**
@@ -72,9 +87,23 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::findOrFail($id);
 
-        $proyecto->update($request->all());
+        $data = $request->validate([
+            'nombre' => ['required', 'string', 'max:255'],
+            'fecha_inicio' => ['required', 'date'],
+            'estado' => ['required', 'string', 'max:255'],
+            'responsable' => ['required', 'string', 'max:255'],
+            'monto' => ['required', 'numeric', 'min:0'],
+        ]);
 
-        return redirect()->route('proyectos.index');
+        $proyecto->update([
+            'nombre' => $data['nombre'],
+            'fecha_inicio' => $data['fecha_inicio'],
+            'estado' => $data['estado'],
+            'responsable' => $data['responsable'],
+            'monto' => $data['monto'],
+        ]);
+
+        return redirect()->route('proyectos.index')->with('success', 'Proyecto actualizado correctamente.');
     }
 
     /**
@@ -86,6 +115,6 @@ class ProyectoController extends Controller
 
         $proyecto->delete();
 
-        return redirect()->route('proyectos.index');
+        return redirect()->route('proyectos.index')->with('success', 'Proyecto eliminado correctamente.');
     }
 }

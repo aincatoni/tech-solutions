@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Detalle del Proyecto')
+
 @section('content')
 <div class="container">
     <x-uf-extract />
@@ -16,7 +18,9 @@
             <p><strong>Fecha de Inicio:</strong> {{ $proyecto->fecha_inicio }}</p>
             <p><strong>Estado:</strong> {{ $proyecto->estado }}</p>
             <p><strong>Responsable:</strong> {{ $proyecto->responsable }}</p>
-            <p class="mb-0"><strong>Monto:</strong> ${{ number_format($proyecto->monto, 0, ',', '.') }}</p>
+            <p><strong>Monto:</strong> ${{ number_format($proyecto->monto, 0, ',', '.') }}</p>
+            <p><strong>Creado por:</strong> {{ $proyecto->creator?->name ?? 'Sin usuario' }}</p>
+            <p class="mb-0"><strong>ID creador:</strong> {{ $proyecto->created_by ?? 'Sin asignar' }}</p>
         </div>
     </div>
 </div>
