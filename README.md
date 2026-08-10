@@ -1,8 +1,8 @@
-# Evaluación 1 Desarrollo de software web 1
+# Evaluacion 2 Desarrollo de software web 1
 
 ## Encargo: Gestion de Proyectos
 
-Aplicacion desarrollada en Laravel para la gestion basica de proyectos. Incluye listado, creacion, visualizacion, edicion y eliminacion de proyectos, siguiendo una estructura MVC simple con un unico controlador principal.
+Aplicacion desarrollada en Laravel para la gestion de proyectos. Esta version corresponde a la Evaluacion 2 e incorpora autenticacion de usuarios, registro con contrasena cifrada, proteccion de rutas y asociacion de proyectos al usuario que los crea.
 
 ### Entrega:
 
@@ -17,20 +17,31 @@ Aplicacion desarrollada en Laravel para la gestion basica de proyectos. Incluye 
 - Laravel 11
 - PHP 8.3
 - Bootstrap 5
-- SQLite
+- MySQL
 
 ## Funcionalidades principales
 
+- registro de usuarios
+- inicio y cierre de sesion
+- proteccion de rutas con middleware `auth`
 - listado de proyectos
 - vista para crear proyectos
 - vista para ver un proyecto por ID
 - vista para editar proyectos
 - vista de confirmacion para eliminar proyectos
+- asociacion de cada proyecto con su usuario creador
 - componente reutilizable que muestra un valor UF simulado
 
-## Modelo Proyecto
+## Modelos principales
 
-El modelo `Proyecto` considera los siguientes campos:
+### User
+
+- `id`
+- `name`
+- `email`
+- `password`
+
+### Proyecto
 
 - `id`
 - `nombre`
@@ -38,6 +49,7 @@ El modelo `Proyecto` considera los siguientes campos:
 - `estado`
 - `responsable`
 - `monto`
+- `created_by`
 
 ## Instalacion y ejecucion
 
@@ -53,26 +65,74 @@ composer install
 npm install
 ```
 
-3. Crear la base de datos y cargar datos de ejemplo:
+3. Crear el archivo de entorno si aun no existe:
+
+```bash
+cp .env.example .env
+```
+
+4. Configurar MySQL en `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=desarrollo_software_1
+DB_USERNAME=root
+DB_PASSWORD=desarrollo_software_1
+```
+
+5. Crear la base de datos en MySQL:
+
+```sql
+CREATE DATABASE desarrollo_software_1;
+```
+
+6. Generar la clave de la aplicacion:
+
+```bash
+php artisan key:generate
+```
+
+7. Ejecutar migraciones y seeders:
 
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-4. Levantar el servidor:
+8. Levantar el servidor:
 
 ```bash
 php artisan serve
 ```
 
-5. En otra terminal, ejecutar Vite si se desea trabajar con assets en desarrollo:
+9. En otra terminal, ejecutar Vite si se desea trabajar con assets en desarrollo:
 
 ```bash
 npm run dev
 ```
 
+## Credenciales de prueba
+
+Si ejecutas los seeders, queda disponible este usuario:
+
+- email: `test@example.com`
+- password: `desarrollo_software_1`
+
+## Flujo de autenticacion
+
+1. Un usuario puede registrarse en `/register`
+2. El registro crea el usuario con contrasena cifrada
+3. Luego inicia sesion automaticamente
+4. Todas las rutas de proyectos requieren autenticacion
+5. Cada proyecto nuevo se guarda con `created_by` igual al ID del usuario autenticado
+
 ## Rutas principales
 
+- `/`
+- `/login`
+- `/register`
+- `/logout`
 - `/proyectos`
 - `/proyectos/crear`
 - `/proyectos/{id}`
@@ -81,7 +141,15 @@ npm run dev
 
 ## Base de datos
 
-El proyecto utiliza SQLite como base de datos local y carga un proyecto de ejemplo mediante seeders.
+El proyecto utiliza MySQL con la base `desarrollo_software_1`. La relacion entre proyectos y usuarios se implementa mediante el campo `created_by`, que referencia `users.id`.
+
+## Migraciones y seeders
+
+- migracion base de `users`
+- migracion base de `proyectos`
+- migracion adicional para agregar `created_by` a `proyectos`
+- `DatabaseSeeder` crea un usuario de prueba conocido
+- `ProyectoSeeder` crea un proyecto asociado a ese usuario
 
 ## Componente UF
 
