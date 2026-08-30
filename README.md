@@ -1,8 +1,8 @@
-# Evaluacion 2 Desarrollo de software web 1
+# Evaluaciones 2 y 3 - Desarrollo de Software Web 1
 
 ## Encargo: Gestion de Proyectos
 
-Aplicacion desarrollada en Laravel para la gestion de proyectos. Esta version corresponde a la Evaluacion 2 e incorpora autenticacion de usuarios, registro con contrasena cifrada, proteccion de rutas y asociacion de proyectos al usuario que los crea.
+Aplicacion desarrollada en Laravel para la gestion de proyectos. Incluye la Evaluacion 2, con autenticacion y CRUD web, y la Evaluacion 3, con una API REST JSON para gestionar proyectos.
 
 ### Entrega:
 
@@ -31,6 +31,9 @@ Aplicacion desarrollada en Laravel para la gestion de proyectos. Esta version co
 - vista de confirmacion para eliminar proyectos
 - asociacion de cada proyecto con su usuario creador
 - componente reutilizable que muestra un valor UF simulado
+- API REST JSON para listar, crear, consultar, actualizar y eliminar proyectos
+- validacion de datos y respuestas HTTP `404` y `422` en la API
+- pruebas automatizadas para los endpoints de proyectos
 
 ## Modelos principales
 
@@ -100,7 +103,7 @@ php artisan key:generate
 php artisan migrate:fresh --seed
 ```
 
-8. Levantar el servidor:
+8. Levantar el servidor si no se utiliza Laravel Herd:
 
 ```bash
 php artisan serve
@@ -111,6 +114,16 @@ php artisan serve
 ```bash
 npm run dev
 ```
+
+### Ejecucion con Laravel Herd
+
+Con Laravel Herd, el proyecto queda disponible en:
+
+```text
+http://tech-solutions.test
+```
+
+La API queda disponible bajo `http://tech-solutions.test/api`.
 
 ## Credenciales de prueba
 
@@ -151,6 +164,43 @@ Si ejecutas los seeders, queda disponible este usuario:
 - `/proyectos/{id}`
 - `/proyectos/{id}/editar`
 - `/proyectos/{id}/eliminar`
+
+## API REST de proyectos
+
+La Evaluacion 3 incorpora endpoints JSON sin autenticacion API para operar con proyectos. La ruta base es `/api/proyectos`.
+
+| Metodo | Ruta | Respuesta esperada |
+| --- | --- | --- |
+| `GET` | `/api/proyectos` | `200 OK` con un arreglo JSON |
+| `POST` | `/api/proyectos` | `201 Created` con el proyecto creado |
+| `GET` | `/api/proyectos/{id}` | `200 OK` o `404 Not Found` |
+| `PUT` | `/api/proyectos/{id}` | `200 OK` o `404 Not Found` |
+| `DELETE` | `/api/proyectos/{id}` | `204 No Content` o `404 Not Found` |
+
+Los campos requeridos para crear o actualizar un proyecto son `nombre`, `fecha_inicio`, `estado`, `responsable`, `monto` y `created_by`. Las solicitudes incompletas responden con `422 Unprocessable Content` y errores de validacion en JSON.
+
+### Ejemplo de solicitud
+
+```json
+{
+  "nombre": "Proyecto API",
+  "fecha_inicio": "2026-08-29",
+  "estado": "Pendiente",
+  "responsable": "Responsable API",
+  "monto": 100000,
+  "created_by": 1
+}
+```
+
+### Pruebas automatizadas
+
+Ejecutar las pruebas de la aplicacion:
+
+```bash
+php artisan test
+```
+
+El archivo `tests/Feature/ProyectoApiTest.php` cubre listado vacio, creacion, validacion, consulta, actualizacion, eliminacion y respuestas `404`.
 
 ## Base de datos
 
@@ -228,3 +278,65 @@ La vista principal de proyectos incorpora el componente reutilizable `x-uf-extra
 ### Sesion cerrada
 
 ![Sesion cerrada](docs/capturas/vista-sesion-cerrada.png)
+
+## Evidencias de la Evaluacion 3
+
+### API disponible en Herd
+
+![API en navegador](docs/capturas/captura-api-browser.png)
+
+### Rutas API registradas
+
+![Rutas API](docs/capturas/evidencia_rutas_phpartisan.png)
+
+### Coleccion y variables de Postman
+
+![Coleccion Postman](docs/capturas/coleccion-postman.png)
+
+![Variables Postman](docs/capturas/postman_variables.png)
+
+### Pruebas del CRUD API
+
+#### Listar proyectos: `200 OK`
+
+![Listar proyectos](docs/capturas/postman_01_listar_Proyectos.png)
+
+#### Crear proyecto: `201 Created`
+
+![Crear proyecto](docs/capturas/postman_02_crear_proyecto.png)
+
+#### Validacion de campos requeridos: `422 Unprocessable Content`
+
+![Crear proyecto incompleto](docs/capturas/postman_03_crear_proyecto_incompleto.png)
+
+#### Consultar proyecto creado: `200 OK`
+
+![Consultar proyecto creado](docs/capturas/postman_04_consultar_proyecto_creado.png)
+
+#### Consultar identificador inexistente: `404 Not Found`
+
+![Consultar proyecto inexistente](docs/capturas/postman_05_consultar_id_inexistente.png)
+
+#### Actualizar proyecto: `200 OK`
+
+![Actualizar proyecto](docs/capturas/postman_06_actualizar_proyecto.png)
+
+#### Actualizar identificador inexistente: `404 Not Found`
+
+![Actualizar proyecto inexistente](docs/capturas/postman_07_actualizar_proyecto_inexistente.png)
+
+#### Eliminar proyecto: `204 No Content`
+
+![Eliminar proyecto](docs/capturas/postman_08_eliminar_proyecto.png)
+
+#### Confirmar eliminacion: `404 Not Found`
+
+![Confirmar proyecto eliminado](docs/capturas/postman_09_confirmar_proyecto_eliminado.png)
+
+#### Eliminar identificador inexistente: `404 Not Found`
+
+![Eliminar proyecto inexistente](docs/capturas/postman_10_eliminar_id_inexistente.png)
+
+### Ejecucion de pruebas automatizadas
+
+![Pruebas automatizadas](docs/capturas/evidencia_ejecucion_test_automatizado.png)
