@@ -58,7 +58,7 @@ class ProyectoApiController extends Controller
 
         $proyecto->update($data);
 
-        return response()->json($proyecto->fresh(), 200);
+        return response()->json($proyecto->fresh(), 201);
     }
 
     public function destroy(string $id)
