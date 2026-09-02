@@ -169,13 +169,13 @@ Si ejecutas los seeders, queda disponible este usuario:
 
 La Evaluacion 3 incorpora endpoints JSON sin autenticacion API para operar con proyectos. La ruta base es `/api/proyectos`.
 
-| Metodo | Ruta | Respuesta esperada |
-| --- | --- | --- |
-| `GET` | `/api/proyectos` | `200 OK` con un arreglo JSON |
-| `POST` | `/api/proyectos` | `201 Created` con el proyecto creado |
-| `GET` | `/api/proyectos/{id}` | `200 OK` o `404 Not Found` |
-| `PUT` | `/api/proyectos/{id}` | `200 OK` o `404 Not Found` |
-| `DELETE` | `/api/proyectos/{id}` | `204 No Content` o `404 Not Found` |
+| Metodo   | Ruta                  | Respuesta esperada                   |
+| -------- | --------------------- | ------------------------------------ |
+| `GET`    | `/api/proyectos`      | `200 OK` con un arreglo JSON         |
+| `POST`   | `/api/proyectos`      | `201 Created` con el proyecto creado |
+| `GET`    | `/api/proyectos/{id}` | `200 OK` o `404 Not Found`           |
+| `PUT`    | `/api/proyectos/{id}` | `200 OK` o `404 Not Found`           |
+| `DELETE` | `/api/proyectos/{id}` | `204 No Content` o `404 Not Found`   |
 
 Los campos requeridos para crear o actualizar un proyecto son `nombre`, `fecha_inicio`, `estado`, `responsable`, `monto` y `created_by`. Las solicitudes incompletas responden con `422 Unprocessable Content` y errores de validacion en JSON.
 
@@ -183,12 +183,12 @@ Los campos requeridos para crear o actualizar un proyecto son `nombre`, `fecha_i
 
 ```json
 {
-  "nombre": "Proyecto API",
-  "fecha_inicio": "2026-08-29",
-  "estado": "Pendiente",
-  "responsable": "Responsable API",
-  "monto": 100000,
-  "created_by": 1
+    "nombre": "Proyecto API",
+    "fecha_inicio": "2026-08-29",
+    "estado": "Pendiente",
+    "responsable": "Responsable API",
+    "monto": 100000,
+    "created_by": 1
 }
 ```
 
@@ -317,9 +317,9 @@ La vista principal de proyectos incorpora el componente reutilizable `x-uf-extra
 
 ![Consultar proyecto inexistente](docs/capturas/postman_05_consultar_id_inexistente.png)
 
-#### Actualizar proyecto: `200 OK`
+#### Actualizar proyecto: `201 OK`
 
-![Actualizar proyecto](docs/capturas/postman_06_actualizar_proyecto.png)
+![Actualizar proyecto con respuesta 201](docs/capturas/evidencia_put_201.png)
 
 #### Actualizar identificador inexistente: `404 Not Found`
 
