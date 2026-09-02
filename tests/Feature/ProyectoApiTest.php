@@ -74,7 +74,7 @@ class ProyectoApiTest extends TestCase
         ]);
 
         $this->putJson("/api/proyectos/{$proyecto->id}", $updated)
-            ->assertOk()
+            ->assertStatus(201)
             ->assertJsonPath('nombre', 'Proyecto API actualizado');
 
         $this->assertDatabaseHas('proyectos', [
